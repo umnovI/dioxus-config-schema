@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/umnovI/dioxus-config-schema/dioxus.schema.json",
+  "title": "Dioxus TOML",
+  "description": "Dioxus project configuration file",
+  "$comment": "Full documentation can me found at https://dioxuslabs.com/learn/0.5/CLI/configure",
+  "type": "object",
+  "properties": {
+    "application": {
+      "description": "Application-wide configuration. Applies to both web and desktop.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Project name & title."
+        },
+        "default_platform": {
+          "description": "The platform this project targets",
+          "type": "string",
+          "enum": ["web", "desktop"]
+        },
+        "out_dir": {
+          "description": "The directory to place the build artifacts from dx build or dx serve into.\nThis is also where the assets directory will be copied into.",
+          "type": "string"
+        },
+        "asset_dir": {
+          "description": "The directory with your static assets.\nThe CLI will automatically copy these assets into the out_dir after a build/serve",
+          "type": "string"
+        },
+        "sub_package": {
+          "description": "The sub package in the workspace to build by default.",
+          "type": "string"
+        }
+      },
+      "required": ["name", "default_platform"]
+    },
+    "web": {
+      "description": "Web-specific.",
+      "type": "object",
+      "properties": {
+        "app": {
+          "description": "Web-specific configuration.",
+          "type": "object",
+          "properties": {
+            "title": {
+              "description": "The title of the web page.\n`HTML` title tag content",
+              "type": "string"
+            },
+            "base_path": {
+              "description": "The base path to build the application for serving at. This can be useful when serving your application in a subdirectory under a domain. For example, when building a site to be served on GitHub Pages.",
+              "type": "string"
+            }
+          }
+        },
+        "watcher": {
+          "description": "Development server configuration.",
+          "type": "object",
+          "properties": {
+            "reload_html": {
+              "description": "If this is true, the cli will rebuild the index.html file every time the application is rebuilt",
+              "type": "boolean"
+            },
+            "watch_path": {
+              "description": "The files & directories to monitor for changes",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "index_on_404": {
+              "description": "If enabled, Dioxus will serve the root page when a route is not found.This is needed when serving an application that uses the router. However, when serving your app using something else than Dioxus (e.g. GitHub Pages), you will have to check how to configure it on that platform. In GitHub Pages, you can make a copy of index.html named 404.html in the same directory.",
+              "type": "boolean"
+            }
+          }
+        },
+        "resource": {
+          "description": "Static resource configuration.",
+          "type": "object",
+          "properties": {
+            "style": {
+              "description": "CSS files to include in your application.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "script": {
+              "description": "JavaScript files to include in your application.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "dev": {
+              "description": "This is the same as `[web.resource]`, but it only works in development servers. For example, if you want to include a file in a dx serve server, but not a dx serve `--release` server, put it here.",
+              "type": "object",
+              "properties": {
+                "style": {
+                  "description": "CSS files to include in your application. Dev-server only.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "script": {
+                  "description": "JavaScript files to include in your application. Dev-server only.",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "proxy": {
+          "description": "Configuration related to any proxies your application requires during development. Proxies will forward requests to a new service.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "backend": {
+                "description": "The URL to the server to proxy. The CLI will forward any requests under the backend relative route to the backend instead of returning 404",
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "required": ["app", "watcher", "resource"]
+    }
+  },
+  "required": ["application"]
+}
