@@ -24,7 +24,7 @@
           "type": "string"
         },
         "asset_dir": {
-          "description": "The directory with your static assets.\nThe CLI will automatically copy these assets into the out_dir after a build/serve",
+          "description": "The directory with your static assets.\nThe CLI will automatically copy these assets into the `out_dir` after a build/serve",
           "type": "string"
         },
         "sub_package": {
@@ -35,7 +35,6 @@
       "required": ["name", "default_platform"]
     },
     "web": {
-      "description": "Web-specific.",
       "type": "object",
       "properties": {
         "app": {
@@ -64,6 +63,7 @@
               "description": "The files & directories to monitor for changes",
               "type": "array",
               "items": {
+                "description": "The files & directories to monitor for changes",
                 "type": "string"
               }
             },
@@ -81,6 +81,7 @@
               "description": "CSS files to include in your application.",
               "type": "array",
               "items": {
+                "description": "CSS files to include in your application.",
                 "type": "string"
               }
             },
@@ -88,6 +89,7 @@
               "description": "JavaScript files to include in your application.",
               "type": "array",
               "items": {
+                "description": "JavaScript files to include in your application.",
                 "type": "string"
               }
             },
@@ -99,6 +101,7 @@
                   "description": "CSS files to include in your application. Dev-server only.",
                   "type": "array",
                   "items": {
+                    "description": "CSS files to include in your application. Dev-server only.",
                     "type": "string"
                   }
                 },
@@ -106,6 +109,7 @@
                   "description": "JavaScript files to include in your application. Dev-server only.",
                   "type": "array",
                   "items": {
+                    "description": "JavaScript files to include in your application. Dev-server only.",
                     "type": "string"
                   }
                 }
